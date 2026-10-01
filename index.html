@@ -3,29 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capsule Company — Original Design Catalogues</title>
-  <meta name="description" content="Official Capsule Company original interior and architectural design catalogues. Direct access to high-resolution original PDF files.">
+  <title>Capsule Company – Digital Catalogues</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0B0C0E;
-      --card-bg: #14161A;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --gold: #C5A059;
-      --gold-light: #DFBA73;
-      --gold-dim: rgba(197, 160, 89, 0.15);
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg: #090A0D;
+      --bg-surface: #101218;
+      --card-bg: rgba(19, 22, 30, 0.75);
+      --card-border: rgba(200, 133, 102, 0.16);
+      --card-border-hover: rgba(223, 155, 124, 0.6);
+      --copper: #C88566;
+      --copper-light: #DF9B7C;
+      --copper-shimmer: #F5D3C1;
+      --copper-dark: #8E4E30;
+      --copper-glow: rgba(200, 133, 102, 0.18);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
       --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-brand: 'Cinzel', serif;
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -33,550 +44,907 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
     }
+
+    /* Ambient Background Lighting */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(200, 133, 102, 0.12) 0%, rgba(142, 78, 48, 0.04) 50%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200, 133, 102, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header Navigation */
     header {
-      border-bottom: 1px solid var(--card-border);
-      background: rgba(11, 12, 14, 0.85);
-      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 50;
-      padding: 1.25rem 1.5rem;
+      background: rgba(9, 10, 13, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: border-color 0.3s ease;
     }
+
     .header-inner {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 0.9rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1.5rem;
     }
-    .brand-group {
+
+    .brand-wrap {
       display: flex;
       align-items: center;
       gap: 1rem;
       text-decoration: none;
       color: inherit;
     }
-    .brand-title {
+
+    .brand-logo-frame {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #FCF2F0;
+      border: 1px solid rgba(200, 133, 102, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(200, 133, 102, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .brand-wrap:hover .brand-logo-frame {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(200, 133, 102, 0.3);
+    }
+
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
       font-size: 1.15rem;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
+      color: #FFFFFF;
       text-transform: uppercase;
-      color: #fff;
+      line-height: 1.2;
     }
-    .brand-sub {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
+
+    .brand-tagline {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      color: var(--copper-light);
+      font-weight: 700;
       text-transform: uppercase;
-      font-weight: 600;
+      margin-top: 2px;
     }
-    .main-site-btn {
+
+    .header-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem 1rem;
+      background: rgba(200, 133, 102, 0.1);
+      border: 1px solid rgba(200, 133, 102, 0.25);
+      padding: 0.4rem 0.9rem;
       border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
+      color: var(--copper-shimmer);
+      letter-spacing: 0.05em;
     }
-    .main-site-btn:hover {
-      background: var(--gold);
-      color: #000;
-      border-color: var(--gold);
+
+    .header-pill .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--copper-light);
+      box-shadow: 0 0 8px var(--copper);
+      animation: pulse 2s infinite;
     }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Hero Section */
     .hero {
-      max-width: 1200px;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 3.5rem 1.5rem 2rem;
+      padding: 4.5rem 1.5rem 2.5rem;
       text-align: center;
     }
-    .badge {
+
+    .hero-badge-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.35rem 0.85rem;
+      gap: 0.6rem;
+      padding: 0.45rem 1.1rem;
       border-radius: 9999px;
-      background: var(--gold-dim);
-      border: 1px solid rgba(197, 160, 89, 0.3);
-      color: var(--gold-light);
-      font-size: 0.75rem;
+      background: linear-gradient(135deg, rgba(200, 133, 102, 0.14) 0%, rgba(142, 78, 48, 0.08) 100%);
+      border: 1px solid rgba(200, 133, 102, 0.35);
+      color: var(--copper-light);
+      font-size: 0.76rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
+
+    .hero-logo-centerpiece {
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 2rem;
+      border-radius: 26px;
+      padding: 4px;
+      background: linear-gradient(135deg, #DF9B7C, rgba(200, 133, 102, 0.3), #8E4E30);
+      box-shadow: 0 16px 36px rgba(200, 133, 102, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-logo-centerpiece:hover {
+      transform: translateY(-4px) scale(1.03);
+    }
+
+    .hero-logo-centerpiece-inner {
+      width: 100%;
+      height: 100%;
+      background: #FCF2F0;
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-logo-centerpiece-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .hero h1 {
       font-family: var(--font-heading);
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
       font-weight: 700;
-      letter-spacing: -0.02em;
       line-height: 1.15;
-      margin-bottom: 1rem;
-      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.1rem;
+      color: #FFFFFF;
     }
-    .hero h1 span {
-      color: var(--gold);
+
+    .hero h1 span.accent {
+      background: linear-gradient(135deg, #FFFFFF 20%, var(--copper-light) 65%, var(--copper) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-style: italic;
     }
+
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.25rem auto 1.5rem;
+      max-width: 320px;
+    }
+
+    .hero-rule::before,
+    .hero-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 133, 102, 0.5), transparent);
+    }
+
+    .hero-rule-gem {
+      width: 6px;
+      height: 6px;
+      background: var(--copper);
+      transform: rotate(45deg);
+      border-radius: 1px;
+      box-shadow: 0 0 10px var(--copper);
+    }
+
     .hero p {
-      max-width: 680px;
+      max-width: 640px;
       margin: 0 auto;
       color: var(--text-muted);
       font-size: 1.05rem;
-      line-height: 1.6;
+      font-weight: 400;
+      line-height: 1.7;
     }
-    .container {
-      max-width: 1200px;
+
+    /* Search & Filter Toolbar */
+    .toolbar-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
+      padding: 0 2rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 440px;
+      min-width: 280px;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--copper);
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: rgba(19, 22, 30, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      padding: 0.8rem 1.2rem 0.8rem 2.85rem;
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .search-box input:focus {
+      border-color: var(--copper);
+      box-shadow: 0 0 0 3px rgba(200, 133, 102, 0.2), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .search-box input::placeholder {
+      color: #64748B;
+    }
+
+    .stats-pill {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stats-pill strong {
+      color: var(--copper-light);
+      font-weight: 700;
+    }
+
+    /* Container & Catalogues Grid */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
       width: 100%;
       flex: 1;
     }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.75rem;
     }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.75rem;
+
+    /* Premium Catalogue Card */
+    .card-link {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
       position: relative;
       overflow: hidden;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease;
+      cursor: pointer;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(197, 160, 89, 0.4);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+
+    .card-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-    .card-badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
+
+    .card-link:hover {
+      transform: translateY(-6px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(200, 133, 102, 0.12);
+    }
+
+    .card-link:hover::before {
+      opacity: 1;
+    }
+
+    .card-link:hover .open-btn {
+      background: linear-gradient(135deg, #FFFFFF, var(--copper-shimmer));
+      color: #090A0D;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(200, 133, 102, 0.35);
+    }
+
+    .card-link:hover .open-btn svg {
+      transform: translateX(4px);
+    }
+
+    .card-header-row {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-    }
-    .card-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .card-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
+      justify-content: space-between;
       margin-bottom: 1.25rem;
     }
+
+    .card-icon-frame {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(200, 133, 102, 0.16) 0%, rgba(142, 78, 48, 0.08) 100%);
+      border: 1px solid rgba(200, 133, 102, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--copper-light);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card-link:hover .card-icon-frame {
+      transform: scale(1.08) rotate(-2deg);
+      background: linear-gradient(135deg, rgba(200, 133, 102, 0.28) 0%, rgba(142, 78, 48, 0.18) 100%);
+      border-color: var(--copper-light);
+    }
+
+    .card-index-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card-category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.65rem;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
     .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      font-size: 0.76rem;
-      color: #8E95A2;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 0.6rem 0.85rem;
-      border-radius: 8px;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: #CBD5E1;
+      background: rgba(255, 255, 255, 0.025);
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
       margin-bottom: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
+
     .card-meta span {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
-    .btn-group {
+
+    .card-meta span.dot {
+      color: var(--text-dim);
+    }
+
+    .open-btn {
+      background: linear-gradient(135deg, var(--copper-light), var(--copper));
+      color: #090A0D;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      text-align: center;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 0.6rem;
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
     }
-    .btn-primary {
-      background: var(--gold);
-      color: #0B0C0E;
-      font-weight: 700;
-      font-size: 0.88rem;
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: background 0.2s, transform 0.1s;
+
+    .open-btn svg {
+      transition: transform 0.25s ease;
     }
-    .btn-primary:hover {
-      background: var(--gold-light);
-    }
-    .btn-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .btn-secondary {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      color: #E5E7EB;
-      border: 1px solid var(--card-border);
-      font-weight: 600;
-      font-size: 0.8rem;
-      padding: 0.65rem 0.75rem;
-      border-radius: 8px;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
+
+    /* Footer */
     footer {
-      border-top: 1px solid var(--card-border);
-      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(9, 10, 13, 0.92);
+      padding: 3rem 2rem 2.5rem;
       text-align: center;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .footer-logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #FCF2F0;
+    }
+
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .footer-brand {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+
+    .footer-tagline {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--copper);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .footer-rule {
+      max-width: 200px;
+      height: 1px;
+      background: rgba(200, 133, 102, 0.25);
+      margin: 1.25rem auto;
+    }
+
+    .footer-copy {
       font-size: 0.82rem;
-      color: var(--text-muted);
+      color: var(--text-dim);
     }
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--gold);
-      color: #000;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.75rem 1.25rem;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-      z-index: 100;
-    }
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
+
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 0.8rem 1rem;
+      }
+      .brand-name {
+        font-size: 1rem;
+      }
+      .hero {
+        padding: 3rem 1rem 1.5rem;
+      }
+      .toolbar-wrap {
+        padding: 0 1rem 1.5rem;
+      }
+      .container {
+        padding: 0 1rem 3.5rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .card-link {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Top Sticky Header with Official Logo -->
   <header>
     <div class="header-inner">
-      <div class="brand-group">
-        <div>
-          <div class="brand-title">CAPSULE COMPANY</div>
-          <div class="brand-sub">ARCHITECTURAL CATALOGUE DIRECTORY</div>
+      <a href="#" class="brand-wrap" title="Capsule Company">
+        <div class="brand-logo-frame">
+          <img src="logo.png" alt="Capsule Company Logo">
         </div>
-      </div>
-      <a href="https://capsulecompany.in" target="_blank" rel="noopener noreferrer" class="main-site-btn">
-        <span>Main Website</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <div class="brand-info">
+          <span class="brand-name">CAPSULE COMPANY</span>
+          <span class="brand-tagline">YOUR SPACE MAKER</span>
+        </div>
       </a>
+
+      <div class="header-pill">
+        <span class="pulse-dot"></span>
+        <span>Original Digital Catalogues</span>
+      </div>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="badge">Official Original Downloads • High-Res PDFs</div>
-    <h1>Direct Shareable <span>Catalogue Links</span></h1>
-    <p>Every link below connects directly to the exact original downloaded PDF catalogue file. Share individual categories directly with clients or open in full-screen view.</p>
+    
+    <!-- Centerpiece Official Brand Logo -->
+    <div class="hero-logo-centerpiece">
+      <div class="hero-logo-centerpiece-inner">
+        <img src="logo.png" alt="Capsule Company Logo">
+      </div>
+    </div>
+
+    <div class="hero-badge-wrap">
+      <div class="hero-badge">
+        <span>Preserved Original Catalogues</span>
+      </div>
+    </div>
+
+    <h1>Capsule Company <br><span class="accent">Design Catalogues</span></h1>
+
+    <div class="hero-rule">
+      <span class="hero-rule-gem"></span>
+    </div>
+
+    <p>Browse and explore our complete, authentic collection of architectural interior catalogues. Select any category below to launch its original full-fidelity PDF.</p>
   </section>
 
+  <!-- Search & Stats Toolbar -->
+  <div class="toolbar-wrap">
+    <div class="search-box">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="catalogueSearch" placeholder="Search categories (e.g. Bedrooms, Kitchen, TV)..." oninput="filterCatalogues()">
+    </div>
+
+    <div class="stats-pill">
+      <span>Showing <strong id="visibleCount">8</strong> of <strong>8</strong> Active Catalogues</span>
+    </div>
+  </div>
+
+  <!-- Main Catalogues Grid -->
   <main class="container">
-    <div class="grid">
+    <div class="grid" id="cataloguesGrid">
 
       <!-- 1. Wardrobe -->
-      <article class="card">
+      <a href="Capsule_Interiors_Wardrobe_Catalogue.pdf" target="_blank" class="card-link" data-title="Wardrobe Closets Storage Sliding Walk-in">
         <div>
-          <div class="card-badge">Wardrobe Collection</div>
-          <h2 class="card-title">Wardrobe Catalogue</h2>
-          <p class="card-desc">Bespoke sliding, walk-in, and hinged wardrobe systems with luxury finishes and internal accessories.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Wardrobe SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line><line x1="9" y1="12" x2="9" y2="14"></line><line x1="15" y1="12" x2="15" y2="14"></line></svg>
+            </div>
+            <span class="card-index-badge">01 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Wardrobe</h2>
+          <p class="card-desc">Sliding-door, walk-in, and hinged wardrobe systems with luxury finishes, integrated lighting, and ergonomic internal accessories.</p>
           <div class="card-meta">
             <span>📄 32 Pages</span>
+            <span class="dot">•</span>
             <span>💾 4.25 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Wardrobe_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Wardrobe_Catalogue.pdf" download="Capsule_Interiors_Wardrobe_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Wardrobe_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Wardrobe Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
       <!-- 2. Modular Kitchen -->
-      <article class="card">
+      <a href="Capsule_Interiors_Modular_Kitchen_Catalogue.pdf" target="_blank" class="card-link" data-title="Modular Kitchen Island Parallel L-shape Cabinetry">
         <div>
-          <div class="card-badge">Kitchen Collection</div>
-          <h2 class="card-title">Modular Kitchen Catalogue</h2>
-          <p class="card-desc">L-shaped, parallel, island, and straight layout kitchens with German hardware and bespoke cabinetry.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Kitchen SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <span class="card-index-badge">02 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Modular Kitchen</h2>
+          <p class="card-desc">L-shaped, parallel, island, and straight layout kitchens featuring German soft-close hardware, quartz counters, and bespoke cabinetry.</p>
           <div class="card-meta">
             <span>📄 42 Pages</span>
+            <span class="dot">•</span>
             <span>💾 9.99 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Modular_Kitchen_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Modular_Kitchen_Catalogue.pdf" download="Capsule_Interiors_Modular_Kitchen_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Modular_Kitchen_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Modular Kitchen Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
-      <!-- 3. Beds -->
-      <article class="card">
+      <!-- 3. Bedrooms -->
+      <a href="Capsule_Interiors_Kids_Bed_Catalogue.pdf" target="_blank" class="card-link" data-title="Bedrooms Beds Kids Master Bedroom Furniture Headboards">
         <div>
-          <div class="card-badge">Bedrooms & Kids Beds</div>
-          <h2 class="card-title">Beds Catalogue</h2>
-          <p class="card-desc">Modern bedroom furniture, hydraulic storage bedframes, playful kids spaces, and custom headboards.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Bedroom SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 19h20"></path><path d="M2 13h20"></path><path d="M4 19v-9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9"></path><path d="M4 10h16"></path></svg>
+            </div>
+            <span class="card-index-badge">03 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Bedrooms</h2>
+          <p class="card-desc">Modern bedroom suites, hydraulic storage bedframes, upholstered headboards, and vibrant, imaginative kids bedroom designs.</p>
           <div class="card-meta">
             <span>📄 42 Pages</span>
+            <span class="dot">•</span>
             <span>💾 7.22 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Kids_Bed_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Kids_Bed_Catalogue.pdf" download="Capsule_Interiors_Kids_Bed_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Kids_Bed_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Bedrooms Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
       <!-- 4. TV Units -->
-      <article class="card">
+      <a href="Capsule_Interiors_TV_Unit_Catalogue.pdf" target="_blank" class="card-link" data-title="TV Units Media Entertainment Consoles Fluted Wall Paneling">
         <div>
-          <div class="card-badge">Entertainment Walls</div>
-          <h2 class="card-title">TV Units Catalogue</h2>
-          <p class="card-desc">Architectural entertainment walls, fluted wall panels, floating consoles, and hidden wire management.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- TV Unit SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="13" rx="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+            </div>
+            <span class="card-index-badge">04 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">TV Units</h2>
+          <p class="card-desc">Architectural entertainment walls, fluted acoustic paneling, floating marble-top consoles, and smart hidden wire management.</p>
           <div class="card-meta">
             <span>📄 50 Pages</span>
+            <span class="dot">•</span>
             <span>💾 7.22 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_TV_Unit_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_TV_Unit_Catalogue.pdf" download="Capsule_Interiors_TV_Unit_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_TV_Unit_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open TV Units Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
       <!-- 5. Bar Counter -->
-      <article class="card">
+      <a href="Capsule_Interiors_Bar_Counter_Catalogue.pdf" target="_blank" class="card-link" data-title="Bar Counter Lounge Drinks Stemware Bottle Rack">
         <div>
-          <div class="card-badge">Residential Bar</div>
-          <h2 class="card-title">Bar Counter Catalogue</h2>
-          <p class="card-desc">Bespoke home bar counters, backlit bottle display shelves, stemware storage, and marble accents.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Bar SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 22h8"></path><path d="M12 11v11"></path><path d="M5 3l7 8 7-8z"></path></svg>
+            </div>
+            <span class="card-index-badge">05 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Bar Counter</h2>
+          <p class="card-desc">Bespoke home bar lounges, backlit liquor display shelves, hanging stemware racks, and solid acrylic or marble service counters.</p>
           <div class="card-meta">
             <span>📄 41 Pages</span>
+            <span class="dot">•</span>
             <span>💾 7.29 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Bar_Counter_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Bar_Counter_Catalogue.pdf" download="Capsule_Interiors_Bar_Counter_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Bar_Counter_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Bar Counter Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
-      <!-- 6. Temple Space -->
-      <article class="card">
+      <!-- 6. Temple Design -->
+      <a href="Capsule_Interiors_Temple_Design_Catalogue.pdf" target="_blank" class="card-link" data-title="Temple Design Pooja Mandir CNC Jali Sacred Vastu">
         <div>
-          <div class="card-badge">Pooja Mandir</div>
-          <h2 class="card-title">Temple Space Catalogue</h2>
-          <p class="card-desc">Vastu-compliant sacred pooja room sanctuaries, CNC jali patterns, and handcrafted mandap structures.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Temple SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L3 9v12h18V9L12 2z"></path><path d="M9 21v-6a3 3 0 0 1 6 0v6"></path><path d="M12 7v2"></path></svg>
+            </div>
+            <span class="card-index-badge">06 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Temple Design</h2>
+          <p class="card-desc">Vastu-compliant sacred mandirs, intricate backlit CNC jali carvings, brass embellishments, and artisanal pooja room layouts.</p>
           <div class="card-meta">
             <span>📄 44 Pages</span>
+            <span class="dot">•</span>
             <span>💾 7.11 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Temple_Design_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Temple_Design_Catalogue.pdf" download="Capsule_Interiors_Temple_Design_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Temple_Design_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Temple Design Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
       <!-- 7. POP / Ceiling -->
-      <article class="card">
+      <a href="Capsule_Interiors_POP_Design_Catalogue.pdf" target="_blank" class="card-link" data-title="POP False Ceiling Lighting Gypsum Rafters Cove Light">
         <div>
-          <div class="card-badge">False Ceiling & Lighting</div>
-          <h2 class="card-title">POP / Ceiling Catalogue</h2>
-          <p class="card-desc">Architectural false ceilings, perimeter cove lighting profiles, wooden rafters, and modern gypsum aesthetics.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Ceiling SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18"></path><path d="M5 5v14"></path><path d="M19 5v14"></path><path d="M9 9h6v6H9z"></path></svg>
+            </div>
+            <span class="card-index-badge">07 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">POP</h2>
+          <p class="card-desc">Architectural false ceilings, concealed cove lighting profiles, wooden rafter accents, and contemporary geometric gypsum plans.</p>
           <div class="card-meta">
             <span>📄 32 Pages</span>
+            <span class="dot">•</span>
             <span>💾 10.64 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_POP_Design_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_POP_Design_Catalogue.pdf" download="Capsule_Interiors_POP_Design_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_POP_Design_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open POP Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
       <!-- 8. Crockery Unit -->
-      <article class="card">
+      <a href="Capsule_Interiors_Concrete_Unit_Catalogue.pdf" target="_blank" class="card-link" data-title="Crockery Unit Dining Display Cabinet Glass Sideboard Storage CU">
         <div>
-          <div class="card-badge">Dining Vitrines</div>
-          <h2 class="card-title">Crockery Unit Catalogue</h2>
-          <p class="card-desc">Luxury glass vitrines, dining buffet consoles, illuminated shelving, and fine cutlery display cabinets.</p>
+          <div class="card-header-row">
+            <div class="card-icon-frame">
+              <!-- Crockery SVG Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="4" y1="10" x2="20" y2="10"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg>
+            </div>
+            <span class="card-index-badge">08 / 08</span>
+          </div>
+          <span class="card-category">Interior Collection</span>
+          <h2 class="card-title">Crockery Unit</h2>
+          <p class="card-desc">Bespoke crockery units, fluted and tempered glass display cabinetry, dining sideboards, and fine transitional storage solutions.</p>
           <div class="card-meta">
             <span>📄 52 Pages</span>
+            <span class="dot">•</span>
             <span>💾 8.11 MB</span>
+            <span class="dot">•</span>
             <span>✨ Original PDF</span>
           </div>
         </div>
-        <div class="btn-group">
-          <a href="./Capsule_Interiors_Concrete_Unit_Catalogue.pdf" target="_blank" class="btn-primary">
-            <span>Open PDF Viewer</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <div class="btn-row">
-            <a href="./Capsule_Interiors_Concrete_Unit_Catalogue.pdf" download="Capsule_Interiors_Crockery_Unit_Catalogue.pdf" class="btn-secondary">
-              <span>Download</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-            <button onclick="copyLink('Capsule_Interiors_Concrete_Unit_Catalogue.pdf')" class="btn-secondary">
-              <span>Copy Link</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
-          </div>
+        <div class="open-btn">
+          <span>Open Crockery Unit Catalogue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </div>
-      </article>
+      </a>
 
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
-    <p>© 2026 Capsule Company. Bengaluru, India. All original catalogue designs preserved in their authentic downloaded form.</p>
+    <div class="footer-logo">
+      <div class="footer-logo-img">
+        <img src="logo.png" alt="Capsule Company Logo">
+      </div>
+      <div>
+        <div class="footer-brand">CAPSULE COMPANY</div>
+        <div class="footer-tagline">YOUR SPACE MAKER</div>
+      </div>
+    </div>
+    <div class="footer-rule"></div>
+    <p class="footer-copy">© 2026 Capsule Company. All digital catalogues preserved in original, high-fidelity PDF format.</p>
   </footer>
 
-  <div id="toast" class="toast">Link copied to clipboard!</div>
-
+  <!-- Instant Search Script -->
   <script>
-    function copyLink(path) {
-      const fullUrl = window.location.origin + path;
-      navigator.clipboard.writeText(fullUrl).then(() => {
-        const toast = document.getElementById('toast');
-        toast.textContent = 'Link copied: ' + fullUrl;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-      }).catch(() => {
-        prompt('Copy this shareable link:', window.location.origin + path);
+    function filterCatalogues() {
+      const q = document.getElementById('catalogueSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('#cataloguesGrid .card-link');
+      let visible = 0;
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const text = card.innerText.toLowerCase();
+        if (!q || title.includes(q) || text.includes(q)) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
       });
+      document.getElementById('visibleCount').textContent = visible;
     }
   </script>
 
